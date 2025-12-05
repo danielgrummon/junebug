@@ -1,0 +1,579 @@
+/* Self-contained component styles */
+:host {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.home-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(ellipse at center, #1a0033 0%, #0d001a 50%, #000000 100%);
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Animated background stars/sparkles */
+.home-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(2px 2px at 20% 30%, #ff00ff, transparent),
+        radial-gradient(2px 2px at 60% 70%, #00ff00, transparent),
+        radial-gradient(1px 1px at 50% 50%, #ffff00, transparent),
+        radial-gradient(1px 1px at 80% 10%, #00ffff, transparent),
+        radial-gradient(2px 2px at 90% 60%, #ff6600, transparent);
+    background-size: 200% 200%;
+    animation: sparkle 8s ease-in-out infinite;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+@keyframes sparkle {
+
+    0%,
+    100% {
+        background-position: 0% 0%;
+    }
+
+    50% {
+        background-position: 100% 100%;
+    }
+}
+
+.home-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 30px;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.game-title {
+    font-size: 64px;
+    font-weight: bold;
+    color: #ff00ff;
+    text-align: center;
+    letter-spacing: 8px;
+    text-shadow:
+        0 0 10px #ff00ff,
+        0 0 20px #ff00ff,
+        0 0 40px #ff00ff,
+        0 0 60px #ff00ff;
+    margin: 0;
+    animation: titleGlow 3s ease-in-out infinite alternate;
+    text-transform: uppercase;
+}
+
+@keyframes titleGlow {
+    0% {
+        text-shadow:
+            0 0 10px #ff00ff,
+            0 0 20px #ff00ff,
+            0 0 40px #ff00ff;
+        color: #ff00ff;
+    }
+
+    50% {
+        text-shadow:
+            0 0 20px #00ff00,
+            0 0 40px #00ff00,
+            0 0 60px #00ff00;
+        color: #00ff88;
+    }
+
+    100% {
+        text-shadow:
+            0 0 10px #ffff00,
+            0 0 20px #ffff00,
+            0 0 40px #ffff00;
+        color: #ffff00;
+    }
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    overflow-y: auto;
+    max-height: 85vh;
+    padding: 10px;
+}
+
+/* Upload Section */
+.upload-section {
+    width: 100%;
+    background: rgba(26, 0, 51, 0.9);
+    border: 4px solid #ff00ff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow:
+        0 0 30px rgba(255, 0, 255, 0.6),
+        0 8px 20px rgba(0, 0, 0, 0.5),
+        inset 0 0 30px rgba(255, 0, 255, 0.1);
+}
+
+.upload-title {
+    color: #00ff00;
+    font-size: 24px;
+    margin: 0 0 20px 0;
+    letter-spacing: 3px;
+    text-align: center;
+    text-shadow:
+        0 0 10px #00ff00,
+        0 0 20px #00ff00;
+    text-transform: uppercase;
+}
+
+.upload-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.file-input {
+    display: none;
+}
+
+.upload-label {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 40px;
+    background: linear-gradient(135deg, #ff00ff 0%, #ff6600 50%, #ffff00 100%);
+    border: 4px solid #00ff00;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    box-shadow:
+        0 0 20px rgba(255, 0, 255, 0.6),
+        0 4px 15px rgba(0, 255, 0, 0.4);
+}
+
+.upload-label:hover {
+    background: linear-gradient(135deg, #00ffff 0%, #00ff00 50%, #ffff00 100%);
+    transform: scale(1.05);
+    box-shadow:
+        0 0 40px rgba(0, 255, 255, 0.8),
+        0 6px 20px rgba(0, 255, 0, 0.7);
+}
+
+.upload-icon {
+    font-size: 28px;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 0, 0.8));
+}
+
+.file-info {
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+.file-info.success {
+    background: rgba(0, 255, 0, 0.15);
+    border: 3px solid #00ff00;
+    color: #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+}
+
+.file-info.error {
+    background: rgba(255, 0, 255, 0.15);
+    border: 3px solid #ff00ff;
+    color: #ff00ff;
+    white-space: pre-line;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+}
+
+.check-icon {
+    color: #00ff00;
+    font-size: 24px;
+    filter: drop-shadow(0 0 10px #00ff00);
+}
+
+.error-icon {
+    color: #ff00ff;
+    font-size: 24px;
+    filter: drop-shadow(0 0 10px #ff00ff);
+}
+
+.question-count {
+    color: #ffff00;
+    font-weight: bold;
+    text-shadow: 0 0 10px #ffff00;
+}
+
+.download-sample {
+    display: inline-block;
+    padding: 12px 24px;
+    background: rgba(0, 255, 255, 0.2);
+    border: 2px solid #00ffff;
+    border-radius: 8px;
+    color: #00ffff;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+.download-sample:hover {
+    background: rgba(0, 255, 255, 0.4);
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+}
+
+/* Configuration Section */
+.config-section {
+    width: 100%;
+    background: rgba(26, 0, 51, 0.9);
+    border: 4px solid #00ff00;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow:
+        0 0 30px rgba(0, 255, 0, 0.6),
+        0 8px 20px rgba(0, 0, 0, 0.5),
+        inset 0 0 30px rgba(0, 255, 0, 0.1);
+}
+
+.config-title {
+    color: #ffff00;
+    font-size: 24px;
+    margin: 0 0 20px 0;
+    letter-spacing: 3px;
+    text-align: center;
+    text-shadow:
+        0 0 10px #ffff00,
+        0 0 20px #ffff00;
+    text-transform: uppercase;
+}
+
+.config-options {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.config-button {
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    font-weight: bold;
+    color: #9933ff;
+    background: rgba(0, 0, 0, 0.7);
+    border: 3px solid #9933ff;
+    padding: 15px 30px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(153, 51, 255, 0.3);
+}
+
+.config-button:hover {
+    background: rgba(153, 51, 255, 0.3);
+    border-color: #ff00ff;
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255, 0, 255, 0.6);
+}
+
+.config-button.active {
+    background: linear-gradient(135deg, #ff00ff 0%, #ff6600 100%);
+    border-color: #00ff00;
+    color: #000000;
+    box-shadow:
+        0 0 30px rgba(255, 0, 255, 0.8),
+        0 4px 15px rgba(0, 255, 0, 0.5);
+}
+
+.start-button {
+    font-family: 'Courier New', monospace;
+    font-size: 32px;
+    font-weight: bold;
+    color: #000000;
+    background: linear-gradient(135deg, #ff00ff 0%, #ff6600 50%, #ffff00 100%);
+    border: 4px solid #00ff00;
+    padding: 20px 60px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    transition: all 0.3s ease;
+    box-shadow:
+        0 0 30px rgba(255, 0, 255, 0.6),
+        0 0 50px rgba(0, 255, 0, 0.4);
+    border-radius: 10px;
+}
+
+.start-button:disabled {
+    background: linear-gradient(135deg, #333 0%, #111 100%);
+    border-color: #666;
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.4;
+    animation: none;
+    box-shadow: none;
+}
+
+.start-button.ready {
+    animation: buttonPulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes buttonPulse {
+    from {
+        box-shadow:
+            0 0 30px rgba(255, 0, 255, 0.6),
+            0 0 50px rgba(0, 255, 0, 0.4);
+        transform: translateY(0);
+    }
+
+    to {
+        box-shadow:
+            0 0 50px rgba(255, 0, 255, 1),
+            0 0 80px rgba(0, 255, 0, 0.8);
+        transform: translateY(-5px);
+    }
+}
+
+.start-button:hover {
+    background: linear-gradient(135deg, #00ffff 0%, #00ff00 50%, #ffff00 100%);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow:
+        0 0 60px rgba(0, 255, 255, 1),
+        0 0 80px rgba(0, 255, 0, 0.8);
+}
+
+.start-button:active {
+    transform: translateY(-2px);
+}
+
+.instructions {
+    background: rgba(26, 0, 51, 0.9);
+    border: 4px solid #00ffff;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow:
+        0 0 30px rgba(0, 255, 255, 0.5),
+        0 8px 20px rgba(0, 0, 0, 0.5),
+        inset 0 0 30px rgba(0, 255, 255, 0.1);
+    width: 100%;
+}
+
+.instructions h2 {
+    color: #ff6600;
+    font-size: 24px;
+    margin: 0 0 15px 0;
+    letter-spacing: 3px;
+    text-shadow:
+        0 0 10px #ff6600,
+        0 0 20px #ff6600;
+    text-transform: uppercase;
+}
+
+.instructions p {
+    color: #00ffff;
+    font-size: 16px;
+    margin: 8px 0;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+/* CSV Format Instructions */
+.format-example {
+    text-align: left;
+    margin-top: 15px;
+}
+
+.format-header {
+    font-size: 16px;
+    color: #ffff00;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-shadow: 0 0 10px #ffff00;
+}
+
+.format-box {
+    background: #000000;
+    border: 2px solid #00ff00;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    overflow-x: auto;
+    box-shadow:
+        0 0 20px rgba(0, 255, 0, 0.3),
+        inset 0 0 20px rgba(0, 255, 0, 0.1);
+}
+
+.format-box code {
+    color: #00ff00;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    line-height: 1.8;
+    display: block;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.format-box.example code {
+    color: #ffff00;
+    text-shadow: 0 0 5px rgba(255, 255, 0, 0.5);
+}
+
+.format-note {
+    color: #ff00ff;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 15px 0 10px 0;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+.format-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.format-list li {
+    color: #00ffff;
+    font-size: 15px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+}
+
+.format-list li:last-child {
+    border-bottom: none;
+}
+
+.format-list li strong {
+    color: #ff6600;
+    text-shadow: 0 0 10px #ff6600;
+}
+
+.format-example-text {
+    color: #ff00ff;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 15px 0 10px 0;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffff00;
+    background: rgba(0, 0, 0, 0.7);
+    border: 3px solid #ffff00;
+    border-radius: 8px;
+    padding: 12px 24px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 0 20px rgba(255, 255, 0, 0.4);
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 0, 0.2);
+    box-shadow: 0 0 30px rgba(255, 255, 0, 0.8);
+    transform: translateX(-5px);
+}
+
+.exit-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff00ff;
+    background: rgba(0, 0, 0, 0.7);
+    border: 3px solid #ff00ff;
+    border-radius: 8px;
+    padding: 12px 24px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+}
+
+.exit-button:hover {
+    background: rgba(255, 0, 255, 0.2);
+    box-shadow: 0 0 30px rgba(255, 0, 255, 0.8);
+    transform: scale(1.05);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .game-title {
+        font-size: 40px;
+        letter-spacing: 4px;
+    }
+
+    .start-button {
+        font-size: 24px;
+        padding: 15px 40px;
+    }
+
+    .instructions {
+        padding: 20px;
+    }
+
+    .instructions h2 {
+        font-size: 22px;
+    }
+
+    .instructions p {
+        font-size: 16px;
+    }
+
+    .back-button,
+    .exit-button {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}

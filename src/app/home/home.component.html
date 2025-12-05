@@ -1,0 +1,26 @@
+<div class="home-container">
+    @if (!selectedGame()) {
+    <div class="owl-decor top-left">🦉</div>
+    <div class="owl-decor top-right">🦉</div>
+    <div class="owl-decor bottom-left">🦉</div>
+    <div class="owl-decor bottom-right">🦉</div>
+    <div class="main-menu">
+        <h1 class="arcade-title">Flash Owls</h1>
+        <p class="tagline">✨ Wisdom Through Play ✨</p>
+        <div class="game-list">
+            <button class="game-button" (click)="selectGame('question-challenge')">
+                <span class="game-icon">🎯</span>
+                <span class="game-name">Question Challenge</span>
+            </button>
+        </div>
+        <div class="footer">
+            <p>▶ SELECT A GAME TO START ◀</p>
+        </div>
+        <div class="copyright">
+            <p>Copyright © 2025 Daniel Grummon</p>
+        </div>
+    </div>
+    } @else if (selectedGame() === 'question-challenge') {
+    <app-question-challenge-home (backToArcade)="backToMenu()"></app-question-challenge-home>
+    }
+</div>

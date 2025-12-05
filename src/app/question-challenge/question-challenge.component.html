@@ -1,0 +1,155 @@
+<div class="game-container" [style.background]="getCurrentTheme()">
+    <!-- Back Button -->
+    @if (showBackButton()) {
+    <button class="back-button" (click)="goBack()">← BACK TO MENU</button>
+    }
+
+    <!-- Timer and Score Header -->
+    <div class="header">
+        <div class="stat-box">
+            <span class="label">ROUND</span>
+            <span class="value">{{ currentRound() }}</span>
+        </div>
+        <div class="timer-box" [class.time-warning]="timeRemaining() <= 10">
+            <span class="timer-label">TIME</span>
+            <span class="timer-value">{{ getFormattedTime() }}</span>
+        </div>
+        @if (!roundComplete()) {
+        <div class="stat-box">
+            <span class="label">READY</span>
+            <span class="value">{{ canSubmit() ? '✓' : '...' }}</span>
+        </div>
+        }
+        @if (roundComplete() && !hasMultipleRounds()) {
+        <div class="stat-box">
+            <span class="label">CORRECT</span>
+            <span class="value">{{ getCurrentRoundPercent() }}%</span>
+        </div>
+        }
+        @if (roundComplete() && hasMultipleRounds()) {
+        <div class="stat-box">
+            <span class="label">ROUND</span>
+            <span class="value">{{ getCurrentRoundPercent() }}%</span>
+        </div>
+        }
+        @if (roundComplete() && hasMultipleRounds()) {
+        <div class="stat-box">
+            <span class="label">TOTAL ({{ cumulativeTotal() }} Qs)</span>
+            <span class="value">{{ getCumulativePercent() }}%</span>
+        </div>
+        }
+    </div>
+
+    <!-- Questions Grid -->
+    <div class="questions-grid">
+        @for (qs of questionSets; track qIndex; let qIndex = $index) {
+        <div class="question-card" [attr.data-index]="qIndex">
+            <div class="question-number">QUESTION {{ qIndex + 1 }}</div>
+            <div class="question-text">{{ qs.question.question }}</div>
+
+            <div class="answers-list">
+                @for (answer of qs.question.answers; track aIndex; let aIndex = $index) {
+                <label class="answer-option" [class.selected]="isSelected(qIndex, aIndex)"
+                    [class.correct]="isCorrectAnswer(qIndex, aIndex)" [class.wrong]="isWrongAnswer(qIndex, aIndex)"
+                    [class.disabled]="roundComplete()">
+                    <input type="radio" [name]="'question-' + qIndex" [value]="aIndex"
+                        [checked]="isSelected(qIndex, aIndex)" [disabled]="roundComplete()"
+                        (change)="selectAnswer(qIndex, aIndex)">
+                    <span class="radio-custom"></span>
+                    <span class="answer-text">{{ answer }}</span>
+                    @if (roundComplete() && isCorrectAnswer(qIndex, aIndex)) {
+                    <span class="check-mark">✓</span>
+                    }
+                    @if (roundComplete() && isWrongAnswer(qIndex, aIndex)) {
+                    <span class="x-mark">✗</span>
+                    }
+                </label>
+                }
+            </div>
+        </div>
+        }
+    </div>
+
+    <!-- Submit Button -->
+    @if (!roundComplete()) {
+    <div class="submit-container">
+        <button class="submit-button" [disabled]="!canSubmit()" [class.ready]="canSubmit()" (click)="submitAnswers()">
+            SUBMIT ANSWERS
+        </button>
+    </div>
+    }
+
+    <!-- Congratulations Overlay -->
+    @if (showCongratulations()) {
+    <div class="overlay">
+        <div class="congratulations-box" [class.perfect-score]="isPerfectScore()">
+            @if (isPerfectScore()) {
+            <h1 class="congrats-title perfect">� PERFECT SCORE! 🌟</h1>
+            <p class="congrats-text">ABSOLUTELY AMAZING! You got every question right!</p>
+            }
+            @else if (getCurrentRoundPercent() >= 75) {
+            <h1 class="congrats-title">🎉 EXCELLENT WORK! 🎉</h1>
+            <p class="congrats-text">Great job! You're doing fantastic!</p>
+            }
+            @else if (getCurrentRoundPercent() >= 50) {
+            <h1 class="congrats-title">👍 GOOD JOB! 👍</h1>
+            <p class="congrats-text">You completed the round! Keep it up!</p>
+            }
+            @else {
+            <h1 class="congrats-title">💪 KEEP GOING! 💪</h1>
+            <p class="congrats-text">You're learning! Every attempt makes you stronger!</p>
+            }
+            <div class="congrats-stats">
+                <div class="congrats-stat">
+                    <span class="stat-label">Round Score</span>
+                    <span class="stat-value">{{ getCurrentRoundPercent() }}%</span>
+                </div>
+                @if (hasMultipleRounds()) {
+                <div class="congrats-stat">
+                    <span class="stat-label">Cumulative Score ({{ cumulativeTotal() }} questions)</span>
+                    <span class="stat-value">{{ getCumulativePercent() }}%</span>
+                </div>
+                }
+                <div class="congrats-stat">
+                    <span class="stat-label">Time Remaining</span>
+                    <span class="stat-value">{{ getFormattedTime() }}</span>
+                </div>
+            </div>
+            <p class="continue-text">Press ENTER or SPACE to continue</p>
+        </div>
+    </div>
+    }
+
+    <!-- Time Expired Overlay -->
+    @if (timeExpired() && !showCongratulations()) {
+    <div class="overlay">
+        <div class="time-up-box">
+            @if (getCurrentRoundPercent() >= 75) {
+            <h1 class="time-up-title">⏰ TIME'S UP! ⏰</h1>
+            <p class="time-up-text">Great job! You were on fire!</p>
+            }
+            @else if (getCurrentRoundPercent() >= 50) {
+            <h1 class="time-up-title">⏰ TIME'S UP! ⏰</h1>
+            <p class="time-up-text">Not bad! Keep up the momentum!</p>
+            }
+            @else {
+            <h1 class="time-up-title">⏰ TIME'S UP! ⏰</h1>
+            <p class="time-up-text">Don't give up! You'll do better next time!</p>
+            }
+            <div class="time-up-stats">
+                <div class="congrats-stat">
+                    <span class="stat-label">Round Score</span>
+                    <span class="stat-value">{{ getCurrentRoundPercent() }}%</span>
+                </div>
+                @if (hasMultipleRounds()) {
+                <div class="congrats-stat">
+                    <span class="stat-label">Cumulative Score ({{ cumulativeTotal() }} questions)</span>
+                    <span class="stat-value">{{ getCumulativePercent() }}%</span>
+                </div>
+                }
+            </div>
+            <button class="next-button" (click)="nextRound()">NEXT ROUND</button>
+        </div>
+    </div>
+    }
+</div>

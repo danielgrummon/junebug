@@ -1,0 +1,150 @@
+<div class="home-container">
+    @if (!gameStarted()) {
+    <button class="back-button" (click)="goBackToArcade()">← BACK TO ARCADE</button>
+    <div class="home-screen">
+        <h1 class="game-title">QUESTION CHALLENGE</h1>
+        <div class="menu">
+            <!-- File Upload Section -->
+            <div class="upload-section">
+                <h2 class="upload-title">Upload Your Questions</h2>
+                <div class="upload-box">
+                    <input type="file" id="csv-upload" accept=".csv" (change)="onFileSelected($event)"
+                        class="file-input">
+                    <label for="csv-upload" class="upload-label">
+                        <span class="upload-icon">📁</span>
+                        <span class="upload-text">Choose CSV File</span>
+                    </label>
+                    @if (fileName()) {
+                    <div class="file-info success">
+                        <span class="check-icon">✓</span>
+                        <span>{{ fileName() }}</span>
+                        <span class="question-count">({{ questionCount() }} questions)</span>
+                    </div>
+                    }
+                    @if (uploadError()) {
+                    <div class="file-info error">
+                        <span class="error-icon">✗</span>
+                        <span>{{ uploadError() }}</span>
+                    </div>
+                    }
+                    <button (click)="downloadSampleCSV()" class="download-sample">
+                        ⬇ Download Sample CSV File
+                    </button>
+                </div>
+            </div>
+
+            <!-- Questions Per Round Configuration -->
+            <div class="config-section">
+                <h2 class="config-title">Questions Per Round</h2>
+                <div class="config-options">
+                    <button class="config-button" [class.active]="questionsPerRound() === 4"
+                        (click)="setQuestionsPerRound(4)">
+                        4 Questions
+                    </button>
+                    <button class="config-button" [class.active]="questionsPerRound() === 5"
+                        (click)="setQuestionsPerRound(5)">
+                        5 Questions
+                    </button>
+                    <button class="config-button" [class.active]="questionsPerRound() === 10"
+                        (click)="setQuestionsPerRound(10)">
+                        10 Questions
+                    </button>
+                </div>
+            </div>
+
+            <!-- Time Limit Configuration -->
+            <div class="config-section">
+                <h2 class="config-title">Time Limit Per Round</h2>
+                <div class="config-options">
+                    <button class="config-button" [class.active]="timeLimit() === 60" (click)="setTimeLimit(60)">
+                        60 Seconds
+                    </button>
+                    <button class="config-button" [class.active]="timeLimit() === 90" (click)="setTimeLimit(90)">
+                        90 Seconds
+                    </button>
+                    <button class="config-button" [class.active]="timeLimit() === 120" (click)="setTimeLimit(120)">
+                        120 Seconds
+                    </button>
+                    <button class="config-button" [class.active]="timeLimit() === 180" (click)="setTimeLimit(180)">
+                        180 Seconds
+                    </button>
+                </div>
+            </div>
+
+            <!-- Start Button -->
+            <button class="start-button" [disabled]="!questionsLoaded()" [class.ready]="questionsLoaded()"
+                (click)="startGame()">
+                START GAME
+            </button>
+
+            <!-- Instructions -->
+            <div class="instructions">
+                <h2>CSV FILE FORMAT</h2>
+                <div class="format-example">
+                    <p class="format-header">Your CSV file should have this format:</p>
+                    <div class="format-box">
+                        <code>Question,Correct Answer,Wrong Answer 1,Wrong Answer 2,Wrong Answer 3</code>
+                    </div>
+                    <p class="format-note"><strong>Important:</strong></p>
+                    <ul class="format-list">
+                        <li><strong>Column 1:</strong> The question text</li>
+                        <li><strong>Column 2:</strong> The correct answer</li>
+                        <li><strong>Columns 3-5:</strong> Three wrong answers</li>
+                    </ul>
+                    <p class="format-example-text"><strong>Basic Example:</strong></p>
+                    <div class="format-box example">
+                        <code>What is the capital of France?,Paris,London,Berlin,Madrid</code><br>
+                        <code>What is 2 + 2?,4,3,5,6</code><br>
+                        <code>Who painted the Mona Lisa?,Da Vinci,Picasso,Van Gogh,Monet</code>
+                    </div>
+                    <p class="format-example-text"><strong>Multi-Line Questions (Code Examples):</strong></p>
+                    <ul class="format-list">
+                        <li>Use <strong>double quotes</strong> around any field that contains commas or line breaks</li>
+                        <li>Press ENTER/Return inside quotes to add new lines</li>
+                        <li>No limit on number of lines - display will adjust automatically</li>
+                        <li>Perfect for code snippets, formulas, or long text</li>
+                    </ul>
+                    <div class="format-box example">
+                        <code>"What does this code print?<br>
+for i in range(3):<br>
+&nbsp;&nbsp;print(i)",0 1 2,Error,3 2 1,0 1</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How to Play -->
+            <div class="instructions">
+                <h2>HOW TO PLAY</h2>
+                <p><strong>Game Format:</strong></p>
+                <ul class="format-list">
+                    <li>Configure questions per round (4, 5, or 10)</li>
+                    <li>Set time limit per round (60, 90, 120, or 180 seconds)</li>
+                    <li>Questions are randomly selected from your CSV file</li>
+                </ul>
+                <p><strong>During Each Round:</strong></p>
+                <ul class="format-list">
+                    <li>Select one answer for each question</li>
+                    <li>Click SUBMIT ANSWERS when ready</li>
+                    <li>See your results with correct answers highlighted in green</li>
+                    <li>View your round percentage and cumulative score</li>
+                </ul>
+                <p><strong>Scoring:</strong></p>
+                <ul class="format-list">
+                    <li>Round score shows your percentage for the current round</li>
+                    <li>Cumulative score tracks your total performance across all rounds</li>
+                    <li>Number of questions answered is displayed with cumulative score</li>
+                </ul>
+                <p><strong>Reset Score:</strong></p>
+                <ul class="format-list">
+                    <li>Click "BACK TO MENU" to return and reset all scores to 0</li>
+                    <li>Upload a new CSV file to start fresh with different questions</li>
+                </ul>
+                <p><strong>Continue Playing:</strong> Press ENTER or SPACE to start the next round with new random
+                    questions!</p>
+            </div>
+        </div>
+    </div>
+    } @else {
+    <app-question-challenge [questions]="getQuestions()" (backToHome)="exitGame()"></app-question-challenge>
+    }
+</div>
