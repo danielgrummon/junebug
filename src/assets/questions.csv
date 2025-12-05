@@ -1,41 +1,95 @@
-question,answer1,answer2,answer3,answer4,correct
-What is the capital of France?,London,Berlin,Paris,Madrid,3
-Which planet is known as the Red Planet?,Venus,Mars,Jupiter,Saturn,2
-What is 7 x 8?,54,56,58,64,2
-Who painted the Mona Lisa?,Van Gogh,Picasso,Da Vinci,Monet,3
-What is the largest ocean on Earth?,Atlantic,Indian,Arctic,Pacific,4
-How many continents are there?,5,6,7,8,3
-What is the chemical symbol for gold?,Au,Ag,Fe,Cu,1
-Which year did World War II end?,1943,1944,1945,1946,3
-What is the smallest prime number?,0,1,2,3,3
-Who wrote Romeo and Juliet?,Dickens,Shakespeare,Hemingway,Austen,2
-What is the speed of light?,299792 km/s,300000 km/s,299792458 m/s,186000 mi/s,1
-Which gas do plants absorb?,Oxygen,Nitrogen,Carbon Dioxide,Hydrogen,3
-What is the largest mammal?,Elephant,Blue Whale,Giraffe,Polar Bear,2
-How many sides does a hexagon have?,5,6,7,8,2
-What is the boiling point of water?,90°C,95°C,100°C,105°C,3
-Which country has the most population?,USA,India,China,Brazil,3
-What is the square root of 144?,10,11,12,13,3
-Who discovered penicillin?,Einstein,Fleming,Curie,Pasteur,2
-What is the currency of Japan?,Yuan,Won,Yen,Rupee,3
-How many bones are in the human body?,196,206,216,226,2
-What is the largest planet?,Earth,Jupiter,Saturn,Neptune,2
-Which element has atomic number 1?,Helium,Hydrogen,Lithium,Carbon,2
-What is the capital of Australia?,Sydney,Melbourne,Canberra,Brisbane,3
-How many days in a leap year?,364,365,366,367,3
-What is the freezing point of water?,0°C,-1°C,1°C,32°F,1
-Which ocean is the smallest?,Arctic,Indian,Atlantic,Southern,1
-What is the hardest natural substance?,Gold,Iron,Diamond,Titanium,3
-How many strings does a guitar have?,4,5,6,7,3
-What is the largest desert?,Gobi,Sahara,Arabian,Kalahari,2
-Which vitamin is produced by sunlight?,A,B,C,D,4
-What is the fastest land animal?,Lion,Cheetah,Leopard,Jaguar,2
-How many planets are in our solar system?,7,8,9,10,2
-What is the main ingredient in bread?,Rice,Wheat,Corn,Oats,2
-Which country invented pizza?,France,Spain,Italy,Greece,3
-What is the longest river in the world?,Amazon,Nile,Yangtze,Mississippi,2
-How many colors in a rainbow?,5,6,7,8,3
-What is the smallest country?,Monaco,Vatican,Malta,Liechtenstein,2
-Which instrument has 88 keys?,Organ,Accordion,Piano,Harpsichord,3
-What is the tallest mountain?,K2,Everest,Kilimanjaro,Denali,2
-How many seconds in a minute?,30,50,60,90,3
+Question,Correct Answer,Wrong Answer 1,Wrong Answer 2,Wrong Answer 3
+apple,manzana,perro,mesa,ropa
+house,casa,libro,manzana,cabeza
+water,agua,cama,gato,luna
+book,libro,zapato,pared,tierra
+dog,perro,flor,plato,nube
+cat,gato,río,puerta,sol
+sun,sol,pez,carne,papel
+moon,luna,carro,silla,mano
+car,coche,planta,verde,árbol
+tree,árbol,camisa,piedra,pan
+table,mesa,hijo,mar,cama
+chair,silla,fruta,fuego,noche
+milk,leche,viento,río,pared
+bread,pan,lago,voz,humo
+fire,fuego,estrella,plato,pasto
+star,estrella,sangre,techo,arena
+night,noche,camino,perro,mano
+day,día,hoja,pez,copa
+child,niño,reloj,sol,pan
+mother,madre,papel,árbol,puerta
+father,padre,nube,cabeza,flor
+hand,mano,carne,ropa,barco
+foot,pie,luz,ciudad,hijo
+head,cabeza,leche,mariposa,árbol
+window,ventana,botella,pan,pez
+door,puerta,pera,nube,hoja
+road,camino,cama,arena,voz
+city,ciudad,pasto,flor,zapato
+sea,mar,silla,luna,vino
+river,río,plato,tren,estrella
+shoe,zapato,barco,puente,río
+shirt,camisa,sol,árbol,nieve
+food,comida,pluma,mesa,nube
+friend,amigo,piedra,calle,humo
+family,familia,lago,mano,carne
+flower,flor,pared,camino,viento
+bird,pájaro,puerta,nube,pan
+fish,pez,mesa,tierra,camisa
+mountain,montaña,perro,libro,coche
+lake,lago,árbol,fuego,silla
+earth,tierra,camisa,río,mano
+wind,viento,libro,flor,humo
+rain,lluvia,pan,puente,ciudad
+snow,nieve,carne,niño,puerta
+cloud,nube,silla,papel,río
+sky,cielo,pantera,arena,plato
+school,escuela,perro,cola,hoja
+student,estudiante,mar,noche,pluma
+teacher,maestro,pez,cama,Barco
+paper,papel,luna,humo,camisa
+pen,bolígrafo,madera,carne,silla
+pencil,lápiz,árbol,nube,sal
+clock,reloj,sol,flor,pez
+phone,teléfono,arena,pasto,puente
+computer,computadora,estrella,ropa,mano
+music,música,plato,humo,perro
+movie,película,zapato,mariposa,camino
+story,cuento,cabeza,carne,vino
+window,ventana,árbol,lago,fuego
+glass,vaso,piedra,río,pared
+cup,taza,nube,sol,carro
+plate,plato,luz,mano,montaña
+fork,tenedor,flor,barco,lago
+spoon,cuchara,arena,humo,puerta
+knife,cuchillo,pan,madera,niña
+bed,cama,mar,pez,papel
+room,cuarto,silla,árbol,humo
+kitchen,cocina,luna,cabeza,tren
+bathroom,baño,flor,cielo,camisa
+garden,jardín,mano,pan,cama
+street,calle,humo,coche,estrella
+store,tienda,nube,río,flor
+market,mercado,pantera,sol,plato
+money,dinero,mesa,lago,nieve
+time,tiempo,árbol,humo,pasto
+year,año,silla,pez,libro
+week,semana,perro,luz,carne
+month,mes,papel,arena,mariposa
+morning,mañana,cielo,río,pan
+evening,tarde,flor,tren,nube
+night,noche,verde,pluma,piedra
+breakfast,desayuno,mano,cama,lago
+lunch,almuerzo,nube,sol,cuchillo
+dinner,cena,pasto,niña,estrella
+coffee,café,madera,coche,piedra
+tea,té,pantera,árbol,zapato
+juice,jugo,flor,arena,puerta
+salt,sal,estrella,mariposa,luna
+sugar,azúcar,pan,río,cama
+oil,aceite,plato,viento,noche
+meat,carne,hoja,papel,flor
+egg,huevo,silla,cabeza,montaña
+cheese,queso,nube,sol,pluma
+butter,mantequilla,pantera,barco,árbol
