@@ -178,43 +178,55 @@ export class QuestionChallengeHomeComponent {
         let currentRow: string[] = [];
         let currentField = '';
         let inQuotes = false;
+        let fieldStartedWithQuote = false;
 
         for (let i = 0; i < csvText.length; i++) {
             const char = csvText[i];
             const nextChar = csvText[i + 1];
 
             if (char === '"') {
-                if (inQuotes && nextChar === '"') {
-                    // Escaped quote
+                if (currentField === '' && !inQuotes) {
+                    // Starting a quoted field
+                    inQuotes = true;
+                    fieldStartedWithQuote = true;
+                } else if (inQuotes && nextChar === '"') {
+                    // Escaped quote (two quotes in a row = literal quote)
                     currentField += '"';
                     i++; // Skip next quote
+                } else if (inQuotes) {
+                    // Ending a quoted field
+                    inQuotes = false;
                 } else {
-                    // Toggle quote state
-                    inQuotes = !inQuotes;
+                    // Quote in the middle of an unquoted field - treat as regular character
+                    currentField += char;
                 }
             } else if (char === ',' && !inQuotes) {
                 // End of field
-                currentRow.push(currentField.trim());
+                // Only trim if field didn't start with a quote (preserve formatting in code)
+                currentRow.push(fieldStartedWithQuote ? currentField : currentField.trim());
                 currentField = '';
+                fieldStartedWithQuote = false;
             } else if ((char === '\n' || char === '\r') && !inQuotes) {
                 // End of row (handle both \n and \r\n)
                 if (char === '\r' && nextChar === '\n') {
                     i++; // Skip \n in \r\n
                 }
-                currentRow.push(currentField.trim());
+                // Only trim if field didn't start with a quote
+                currentRow.push(fieldStartedWithQuote ? currentField : currentField.trim());
                 if (currentRow.some(field => field.length > 0)) {
                     rows.push(currentRow);
                 }
                 currentRow = [];
                 currentField = '';
+                fieldStartedWithQuote = false;
             } else {
-                // Regular character (including newlines inside quotes)
+                // Regular character (including newlines inside quotes, and all special chars like ;:[]{}()~$)
                 currentField += char;
             }
         }
 
         // Handle last field and row
-        currentRow.push(currentField.trim());
+        currentRow.push(fieldStartedWithQuote ? currentField : currentField.trim());
         if (currentRow.some(field => field.length > 0)) {
             rows.push(currentRow);
         }
@@ -236,58 +248,26 @@ export class QuestionChallengeHomeComponent {
     }
 
     downloadSampleCSV(): void {
+        // Embedded sample CSV content as fallback
         const sampleCSV = `Question,Correct Answer,Wrong Answer 1,Wrong Answer 2,Wrong Answer 3
 What is the capital of France?,Paris,London,Berlin,Madrid
 What is 2 + 2?,4,3,5,6
-Which planet is known as the Red Planet?,Mars,Venus,Jupiter,Saturn
 Who painted the Mona Lisa?,Da Vinci,Picasso,Van Gogh,Monet
-What is the largest ocean on Earth?,Pacific,Atlantic,Indian,Arctic
-How many continents are there?,7,5,6,8
-What is the chemical symbol for gold?,Au,Ag,Fe,Cu
-Which year did World War II end?,1945,1943,1944,1946
-What is the smallest prime number?,2,0,1,3
-Who wrote Romeo and Juliet?,Shakespeare,Dickens,Hemingway,Austen
-question,answer1,answer2,answer3,answer4,correct
-What is the capital of France?,London,Berlin,Paris,Madrid,3
-Which planet is known as the Red Planet?,Venus,Mars,Jupiter,Saturn,2
-What is 7 x 8?,54,56,58,64,2
-Who painted the Mona Lisa?,Van Gogh,Picasso,Da Vinci,Monet,3
-What is the largest ocean on Earth?,Atlantic,Indian,Arctic,Pacific,4
-How many continents are there?,5,6,7,8,3
-What is the chemical symbol for gold?,Au,Ag,Fe,Cu,1
-Which year did World War II end?,1943,1944,1945,1946,3
-What is the smallest prime number?,0,1,2,3,3
-Who wrote Romeo and Juliet?,Dickens,Shakespeare,Hemingway,Austen,2
-What is the speed of light?,299792 km/s,300000 km/s,299792458 m/s,186000 mi/s,1
-Which gas do plants absorb?,Oxygen,Nitrogen,Carbon Dioxide,Hydrogen,3
-What is the largest mammal?,Elephant,Blue Whale,Giraffe,Polar Bear,2
-How many sides does a hexagon have?,5,6,7,8,2
-What is the boiling point of water?,90°C,95°C,100°C,105°C,3
-Which country has the most population?,USA,India,China,Brazil,3
-What is the square root of 144?,10,11,12,13,3
-Who discovered penicillin?,Einstein,Fleming,Curie,Pasteur,2
-What is the currency of Japan?,Yuan,Won,Yen,Rupee,3
-How many bones are in the human body?,196,206,216,226,2
-What is the largest planet?,Earth,Jupiter,Saturn,Neptune,2
-Which element has atomic number 1?,Helium,Hydrogen,Lithium,Carbon,2
-What is the capital of Australia?,Sydney,Melbourne,Canberra,Brisbane,3
-How many days in a leap year?,364,365,366,367,3
-What is the freezing point of water?,0°C,-1°C,1°C,32°F,1
-Which ocean is the smallest?,Arctic,Indian,Atlantic,Southern,1
-What is the hardest natural substance?,Gold,Iron,Diamond,Titanium,3
-How many strings does a guitar have?,4,5,6,7,3
-What is the largest desert?,Gobi,Sahara,Arabian,Kalahari,2
-Which vitamin is produced by sunlight?,A,B,C,D,4
-What is the fastest land animal?,Lion,Cheetah,Leopard,Jaguar,2
-How many planets are in our solar system?,7,8,9,10,2
-What is the main ingredient in bread?,Rice,Wheat,Corn,Oats,2
-Which country invented pizza?,France,Spain,Italy,Greece,3
-What is the longest river in the world?,Amazon,Nile,Yangtze,Mississippi,2
-How many colors in a rainbow?,5,6,7,8,3
-What is the smallest country?,Monaco,Vatican,Malta,Liechtenstein,2
-Which instrument has 88 keys?,Organ,Accordion,Piano,Harpsichord,3
-What is the tallest mountain?,K2,Everest,Kilimanjaro,Denali,2
-How many seconds in a minute?,30,50,60,90,3`;
+"What does this code print?
+for i in range(3):
+    print(i)",0 1 2,Error,3 2 1,0 1
+"What does this Java code do?
+String name = ""World"";
+System.out.println(""Hello, "" + name);","Prints Hello, World",Syntax error,Prints name,Prints Hello
+"Which Java syntax is correct for an array?","int[] nums = {1, 2, 3};","int nums[] = (1, 2, 3);","array nums = [1, 2, 3];","int nums = [1:2:3];"
+"Which is the correct Java main method signature?","public static void main(String[] args)","public static void String main(String[] args)","public void main(String[] args)","static void main(String args)"
+"What is wrong with this code?
+public class Test {
+    public static void String main(String[] args) {
+        System.out.println(""Hello"");
+    }
+}",Return type should be void not String,Missing semicolon,Class name is wrong,Nothing is wrong
+What is the largest planet in our solar system?,Jupiter,Saturn,Mars,Earth`;
 
         const blob = new Blob([sampleCSV], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
