@@ -250,24 +250,44 @@ export class QuestionChallengeHomeComponent {
     downloadSampleCSV(): void {
         // Embedded sample CSV content as fallback
         const sampleCSV = `Question,Correct Answer,Wrong Answer 1,Wrong Answer 2,Wrong Answer 3
-What is the capital of France?,Paris,London,Berlin,Madrid
-What is 2 + 2?,4,3,5,6
-Who painted the Mona Lisa?,Da Vinci,Picasso,Van Gogh,Monet
 "What does this code print?
-for i in range(3):
-    print(i)",0 1 2,Error,3 2 1,0 1
-"What does this Java code do?
-String name = ""World"";
-System.out.println(""Hello, "" + name);","Prints Hello, World",Syntax error,Prints name,Prints Hello
-"Which Java syntax is correct for an array?","int[] nums = {1, 2, 3};","int nums[] = (1, 2, 3);","array nums = [1, 2, 3];","int nums = [1:2:3];"
-"Which is the correct Java main method signature?","public static void main(String[] args)","public static void String main(String[] args)","public void main(String[] args)","static void main(String args)"
-"What is wrong with this code?
 public class Test {
-    public static void String main(String[] args) {
-        System.out.println(""Hello"");
+    public static void main(String[] args) {
+        for (int i = 0; i < 3; i++) {
+            System.out.print(i + "" "");
+        }
     }
-}",Return type should be void not String,Missing semicolon,Class name is wrong,Nothing is wrong
-What is the largest planet in our solar system?,Jupiter,Saturn,Mars,Earth`;
+}",0 1 2 ,0 1 2,1 2 3 ,0 1 2 3
+"What is the output of this code?
+String str = ""Java"";
+System.out.println(str.length());",4,3,5,6
+"Which of the following is NOT a primitive data type in Java?","String","int","double","boolean"
+"What does this code print?
+int x = 5;
+int y = ++x;
+System.out.println(x + "" "" + y);",6 6,5 6,6 5,5 5
+"What is the correct syntax to declare a constant in Java?","final int MAX = 100;","const int MAX = 100;","static int MAX = 100;","immutable int MAX = 100;"
+"Which of the following correctly implements the try-catch block?","try { } catch (Exception e) { }","try { } except (Exception e) { }","try { } handle (Exception e) { }","try { } error (Exception e) { }"
+"What does this code output?
+String s1 = new String(""Hello"");
+String s2 = new String(""Hello"");
+System.out.println(s1 == s2);",false,true,null,""
+"Which access modifier restricts access to the same class only?","private","protected","default","public"
+"What is the correct way to create a generic list?","List<String> list = new ArrayList<>();","List<String> list = new ArrayList<String>();","List list = new ArrayList();","List<String> list = new List<>();"
+"What does this code print?
+int[] arr = {1, 2, 3, 4, 5};
+System.out.println(arr[arr.length - 1]);",5,4,3,1
+"Which of the following correctly declares a method that returns nothing?","void myMethod() { }","null myMethod() { }","empty myMethod() { }","none myMethod() { }"
+"What is the output?
+String str = ""Java"";
+str = str + "" 17"";
+System.out.println(str);",Java 17,Java,17,Concatenation Error
+"Which keyword is used to prevent method overriding?","final","static","abstract","private"
+"What does this code output?
+Integer a = 10;
+Integer b = 10;
+System.out.println(a == b);",true,false,null,Error
+"What is the correct way to handle multiple exceptions in Java 17?","catch (IOException | SQLException e) { }","catch (IOException, SQLException e) { }","catch (IOException or SQLException e) { }","catch (IOException and SQLException e) { }"`;
 
         const blob = new Blob([sampleCSV], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
